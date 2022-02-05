@@ -3,8 +3,8 @@
   --primary-dark: rgb(71, 68, 68);
   --secondary-dark: rgb(124, 124, 124);
   --red: rgb(206, 98, 98);
-  --green: rgb(105, 204, 105);
-  --blue: rgb(48, 48, 204);
+  --green: rgb(121, 185, 155);
+  --blue: rgb(66, 94, 255);
 }
 
 *, *::before, *::after {
@@ -13,45 +13,57 @@
   margin: 0;
 }
 
+/* header */
+
 body {
   background: var(--primary-light);
   font-family: 'Carter One', sans-serif;
-  color: var(--primary-dark);
+  color: var(--secondary-dark);
   text-align: center;
   font-size: 16px;
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column; */
 }
 
 h1 {
-  letter-spacing: 0.3rem;
-  margin-top: 1rem;
-  font-size: 3rem;
+  letter-spacing: 0.2rem;
+  margin-top: 1em;
+  font-size: 3em;
 }
 
 h3 {
-  font-size: ;
+  font-size: 1.5em;
+  margin: 1em 0 2em;
 }
 
+.rock-header {
+  color: var(--blue);
+}
 
+.paper-header {
+  color: var(--red);
+}
+
+.scissor-header {
+  color: var(--green);
+}
+
+/* body */
 
 .selection-grid {
-  max-width: 50rem;
+  max-width: 50em;
   border-radius: 8px;
-  border: 5px solid var(--primary-dark);
-  padding: 2rem;
+  border: 5px solid var(--secondary-dark);
+  padding: 2em;
   width: min(90%);
-  margin: 1rem auto;
+  margin: 1em auto;
   display: flex;
   justify-content: space-evenly;
 }
 
 .selection {
-  margin: 1rem;
+  margin: 1em;
   background-color: transparent;
   border: none;
+  color: rgba(0, 0, 0, 0.575);
 }
 
 .selection-icon {
@@ -67,6 +79,7 @@ h3 {
   transition: all .3s;
 }
 
+
 .fa-hand-rock:hover {
   color: var(--blue);
 }
@@ -77,4 +90,23 @@ h3 {
 
 .fa-hand-scissors:hover {
   color: var(--green);
+}
+
+.battle-grid {
+  height: 207.33px;
+  max-width: 50em;
+  border-radius: 8px;
+  border: 5px solid var(--secondary-dark);
+  padding: 2em;
+  width: min(90%);
+  margin: 1em auto;
+  display: flex;
+  justify-content: space-evenly;
+  transform: scale(0);
+  transition: all .3s;
+}
+
+.battle-grid.appear {
+  transform: scale(1);
+  transition: all .3s;
 }

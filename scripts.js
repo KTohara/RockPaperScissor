@@ -1,3 +1,21 @@
+// button select
+const rockBtn = document.getElementById('rock');
+const paperBtn = document.getElementById('paper');
+const scissorBtn = document.getElementById('scissor');
+
+
+rockBtn.addEventListener('click', () => clickSelection('Rock'));
+paperBtn.addEventListener('click', () => clickSelection('Paper'));
+scissorBtn.addEventListener('click', () => clickSelection('Scissors'));
+
+function clickSelection(playerSelection) {
+  console.log(playerSelection);
+  const cpuSelection = computerPlay();
+  playRound(playerSelection, cpuSelection);
+  const battleGrid = document.querySelector('.battle-grid');
+  battleGrid.classList.add('appear');
+}
+
 // computer choice
 function computerPlay() {
   const computerChoice = ["rock", "paper", "scissors"];
@@ -23,32 +41,32 @@ function promptPlayer() {
 }
 
 // round of RPS:
-// function playRound(playerSelection, computerSelection) {
-//   let win = `You win! ${playerSelection} beats ${computerSelection.toLowerCase()}.`;
-//   let lose = `You lose! ${computerSelection} beats ${playerSelection.toLowerCase()}.`;
-//   let tie = `You tie! ${playerSelection} ties with ${computerSelection.toLowerCase()}.`;
+function playRound(playerSelection, computerSelection) {
+  let win = `You win! ${playerSelection} beats ${computerSelection.toLowerCase()}.`;
+  let lose = `You lose! ${computerSelection} beats ${playerSelection.toLowerCase()}.`;
+  let tie = `You tie! ${playerSelection} ties with ${computerSelection.toLowerCase()}.`;
 
-//   if ((playerSelection == "Rock" && computerSelection == "Scissors") ||
-//     (playerSelection == "Paper" && computerSelection == "Rock") ||
-//     (playerSelection == "Scissors" && computerSelection == "Paper")) {
-//     console.log(win);
-//     return 'win'
-//   } else if ((computerSelection == "Rock" && playerSelection == "Scissors") ||
-//     (computerSelection == "Paper" && playerSelection == "Rock") ||
-//     (computerSelection == "Scissors" && playerSelection == "Paper")) {
-//     console.log(lose);
-//     return 'lose'
-//   } else if (playerSelection == computerSelection) {
-//     console.log(tie);
-//   }
-// }
+  if ((playerSelection == "Rock" && computerSelection == "Scissors") ||
+    (playerSelection == "Paper" && computerSelection == "Rock") ||
+    (playerSelection == "Scissors" && computerSelection == "Paper")) {
+    console.log(win);
+    return 'win'
+  } else if ((computerSelection == "Rock" && playerSelection == "Scissors") ||
+    (computerSelection == "Paper" && playerSelection == "Rock") ||
+    (computerSelection == "Scissors" && playerSelection == "Paper")) {
+    console.log(lose);
+    return 'lose'
+  } else if (playerSelection == computerSelection) {
+    console.log(tie);
+  }
+}
 
 // game logic:
 // while the game is not over
-  // prompt player for choice
-  // pick computer choice
-  // loop playRound
-  // update wins/losses
+//   prompt player for choice
+//   pick computer choice
+//   loop playRound
+//   update wins/losses
 
 function game() {
   let wins = 0

@@ -11,8 +11,14 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>ROCK PAPER SCISSORS</h1>
+  <h1>
+    <span class="rock-header">ROCK</span>
+    <span class="paper-header">PAPER</span>
+    <span class="scissor-header">SCISSORS</span>
+  </h1>
+  
   <h3>Select your Fighter!</h3>
+  
   <div class="selection-grid">
     <button class="selection" id="rock">
       <i class="far fa-hand-rock selection-icon"></i>
@@ -24,6 +30,12 @@
       <i class="far fa-hand-scissors selection-icon"></i>
     </button>
   </div>
+
+  <div class="battle-grid">
+    <div class="player-selection"></div>
+    <div class="cpu-selection"></div>
+  </div>
+
 </body>
 
 <script>
