@@ -1,26 +1,11 @@
 // AI
-const rockBtn = document.getElementById('rock');
-const paperBtn = document.getElementById('paper');
-const scissorBtn = document.getElementById('scissor');
-
-const selectionButton = document.querySelectorAll('.selection');
-
 let playerLives = 5
 let cpuLives = 5
 let currentRound = 0
 
-const restartBtn = document.querySelector('.restart');
-function gameOver() {
-  if (playerLives <= 0) {
-    scoreText.innerText = "Game Over! Enemy Wins!";
-    return true;
-  } else if (cpuLives <= 0) {
-    scoreText.innerText = "Game Over! Player Wins!";
-    return true;
-  }
-    restartBtn.classList.add('appear');
-  return false;
-}
+const rockBtn = document.getElementById('rock');
+const paperBtn = document.getElementById('paper');
+const scissorBtn = document.getElementById('scissor');
 
 rockBtn.addEventListener('click', () => game('rock'));
 paperBtn.addEventListener('click', () => game('paper'));
@@ -37,7 +22,53 @@ function game(playerSelection) {
   }
 }
 
-// Round of RPS:
+const restartBtn = document.querySelector('.restart');
+
+function gameOver() {
+  if (playerLives <= 3) {
+    scoreText.innerText = "Game Over! Enemy Wins!";
+    setTimeout ( () => {
+      loseSound();
+      restartBtn.classList.add('appear');
+    }, 1300);
+    return true;
+  } else if (cpuLives <= 3) {
+    scoreText.innerText = "Game Over! Player Wins!";
+    setTimeout ( () => {
+      winSound();
+      restartBtn.classList.add('appear');
+    }, 1300);
+    return true;
+  }
+  return false;
+}
+
+restartBtn.addEventListener('click', () => reset());
+
+function reset() {
+  playerLives = 5
+  cpuLives = 5
+  currentRound = 0
+  livesLeft.innerText = `Your lives: ${playerLives} | Enemy's Lives: ${cpuLives}`
+  rounds.innerText = `Rounds: ${currentRound}`;
+
+  battleGrid.classList.remove('appear');
+  scoreGrid.classList.remove('appear');
+
+  selectionButton.forEach((button) => {
+    button.removeAttribute('disabled');
+    button.classList.remove('selection-disabled');
+  });
+
+  restartBtn.classList.remove('appear')
+}
+
+function computerPlay() {
+  const computerChoice = ["rock", "paper", "scissors"];
+  const randomPick = computerChoice[Math.floor(Math.random() * computerChoice.length)];
+  return randomPick;
+}
+
 const rounds = document.querySelector('.round');
 const livesLeft = document.querySelector('.lives');
 const scoreText = document.querySelector('.score-text');
@@ -47,19 +78,19 @@ function playRound(player, cpu) {
   if ((player === "rock" && cpu === "scissors") ||
     (player === "paper" && cpu === "rock") ||
     (player === "scissors" && cpu === "paper")) {
-    scoreText.innerText = `You win! ${player} beats ${cpu.toLowerCase()}!`;
+    scoreText.innerText = `You win! ${capitalize(player)} beats ${cpu.toLowerCase()}!`;
     cpuLives--;
     livesLeft.innerText = `Your lives: ${playerLives} | Enemy's Lives: ${cpuLives}`
     roundResult = 'win';
   } else if ((cpu === "rock" && player === "scissors") ||
     (cpu === "paper" && player === "rock") ||
     (cpu === "scissors" && player === "paper")) {
-    scoreText.innerText = `You lose! ${cpu} beats ${player.toLowerCase()}!`;
+    scoreText.innerText = `You lose! ${capitalize(cpu)} beats ${player.toLowerCase()}!`;
     playerLives--;
     livesLeft.innerText = `Your Lives: ${playerLives} | Enemy's Lives: ${cpuLives}`
     roundResult = 'lose';
   } else if (player === cpu) {
-    scoreText.innerText = `You tie! ${player} ties with ${cpu.toLowerCase()}!`;
+    scoreText.innerText = `You tie! ${capitalize(player)} ties with ${cpu.toLowerCase()}!`;
     roundResult = 'tie';
   }
 
@@ -68,14 +99,15 @@ function playRound(player, cpu) {
   return roundResult;
 }
 
-// CPU Choice
-function computerPlay() {
-  const computerChoice = ["rock", "paper", "scissors"];
-  const randomPick = computerChoice[Math.floor(Math.random() * computerChoice.length)];
-  return randomPick;
+// UI
+const battleGrid = document.querySelector('.battle-grid');
+const scoreGrid = document.querySelector('.score-grid');
+
+function combatAppear() {
+  battleGrid.classList.add('appear');
+  scoreGrid.classList.add('appear');
 }
 
-// Player Selection
 const playerIcon = document.querySelector('.player-icon');
 const cpuIcon = document.querySelector('.cpu-icon');
 
@@ -97,6 +129,27 @@ function updatePlayerIcon(playerPick, cpuPick) {
   } else if (cpuPick === 'scissors') {
     cpuIcon.classList.add('fa-hand-scissors');
   }
+}
+
+const selectionButton = document.querySelectorAll('.selection');
+
+function disableBtn() {
+  if (gameOver()) {
+    selectionButton.forEach((button) => {
+      button.setAttribute('disabled', '');
+      button.classList.add('selection-disabled');
+    });
+    return;
+  }
+
+  selectionButton.forEach((button) => {
+    button.classList.add('selection-disabled');
+    button.disabled = true;
+    setTimeout( () => {
+    button.classList.remove('selection-disabled');
+    button.disabled = false;
+    }, 1300);
+  });
 }
 
 function animateIcon(result) {
@@ -124,43 +177,7 @@ function animateIcon(result) {
   }
 }
 
-function disableBtn() {
-  if (gameOver()) {
-    selectionButton.forEach((button) => {
-      button.setAttribute('disabled', '');
-      button.classList.add('selection-disabled');
-    });
-    return;
-  }
-
-  selectionButton.forEach((button) => {
-    button.classList.add('selection-disabled');
-    button.disabled = true;
-    setTimeout( () => {
-    button.classList.remove('selection-disabled');
-    button.disabled = false;
-    }, 1300);
-  });
-}
-
-const battleGrid = document.querySelector('.battle-grid');
-const scoreGrid = document.querySelector('.score-grid');
-
-function combatAppear() {
-  battleGrid.classList.add('appear');
-  scoreGrid.classList.add('appear');
-}
-
-const modal = document.querySelector('.modal');
-const modalMsg = document.querySelector('.modal-msg');
-const modalBtn = document.querySelector('.restart');
-
-function reset() {
-  playerLives = 5
-  cpuLives = 5
-  currentRound = 0
-}
-
+// Audio
 function hitSound() {
   const audio = document.querySelector('.hit');
   audio.play();
@@ -179,4 +196,10 @@ function winSound() {
 function loseSound() {
   const audio = document.querySelector('.lose');
   audio.play();
+}
+
+// Helper Functions
+
+function capitalize(str) {
+    return str[0].toUpperCase() + str.slice(1);
 }
