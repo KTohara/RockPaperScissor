@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="#">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/6191f9c23a.js" crossorigin="anonymous"></script>
   <script src="scripts.js" defer></script>
-  <title>Document</title>
+  
+  <title>Rock Paper Scissors</title>
 </head>
 <body>
   <h1>
@@ -21,25 +23,47 @@
   
   <div class="selection-grid">
     <button class="selection" id="rock">
-      <i class="far fa-hand-rock selection-icon"></i>
+      <i class="far fa-hand-rock rock-icon selection-icon"></i>
     </button>
     <button class="selection" id="paper">
-      <i class="far fa-hand-paper selection-icon"></i>
+      <i class="far fa-hand-paper paper-icon selection-icon"></i>
     </button>
     <button class="selection" id="scissor">
-      <i class="far fa-hand-scissors selection-icon"></i>
+      <i class="far fa-hand-scissors scissor-icon selection-icon"></i>
     </button>
   </div>
 
   <div class="battle-grid">
-    <div class="player-selection"></div>
-    <div class="cpu-selection"></div>
+    <div class="selection-battle">
+      <p>Player's Fighter</p>
+      <i class="far player-icon"></i>
+    </div>
+    
+    <div class="selection-battle">
+      <p>Enemy's Fighter</p>
+      <i class="far cpu-icon"></i>
+    </div>
   </div>
 
+  <div class="score-grid">
+    <p class="round">Round: 0</p>
+    <p class="lives">Your Lives: 5 | Enemy's Lives: 5</p>
+    <p class="score-text"></p>
+    <button class="restart">Play Again</button>
+  </div> 
+
+  <div class="modal">
+    <div class="modal-content">
+      <p class="modal-msg">You Have Won!</p>
+      
+    </div>
+  </div>
+
+  <audio src="sounds/hit.mp3" class="hit"></audio>
+  <audio src="sounds/miss.mp3" class="miss"></audio>
+  <audio src="sounds/lose.mp3" class="lose"></audio>
+  <audio src="sounds/win.wav" class="win"></audio>
 </body>
 
-<script>
-  
-</script>
 
 </html>

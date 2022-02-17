@@ -51,7 +51,7 @@ h3 {
 .selection-grid {
   max-width: 50em;
   border-radius: 8px;
-  border: 5px solid var(--secondary-dark);
+  border: 5px solid var(--primary-dark);
   padding: 2em;
   width: min(90%);
   margin: 1em auto;
@@ -63,13 +63,19 @@ h3 {
   margin: 1em;
   background-color: transparent;
   border: none;
-  color: rgba(0, 0, 0, 0.575);
 }
 
 .selection-icon {
   font-size: 8em;
-  color: var(--secondary-dark);
+  color: var(--primary-dark);
   transition: all .3s;
+}
+
+.selection-disabled,
+.game-over {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
 }
 
 .selection-icon:hover {
@@ -79,34 +85,170 @@ h3 {
   transition: all .3s;
 }
 
-
-.fa-hand-rock:hover {
+.rock-icon:hover {
   color: var(--blue);
 }
 
-.fa-hand-paper:hover {
+.paper-icon:hover {
   color: var(--red);
 }
 
-.fa-hand-scissors:hover {
+.scissor-icon:hover {
   color: var(--green);
 }
 
+/* game output */
+
 .battle-grid {
-  height: 207.33px;
-  max-width: 50em;
-  border-radius: 8px;
-  border: 5px solid var(--secondary-dark);
-  padding: 2em;
-  width: min(90%);
-  margin: 1em auto;
-  display: flex;
-  justify-content: space-evenly;
   transform: scale(0);
   transition: all .3s;
 }
 
 .battle-grid.appear {
+  max-width: 50em;
+  border-radius: 8px;
+  border: 5px solid var(--primary-dark);
+  padding: 2em;
+  width: min(90%);
+  margin: 1em auto 0;
+  display: flex;
+  justify-content: space-evenly;
+  
   transform: scale(1);
   transition: all .3s;
+}
+
+.player-icon,
+.cpu-icon {
+  font-size: 7em;
+  /* transition: all .3s; */
+}
+
+.animation-win {
+  animation: scale 0.3s 1.25s;
+  animation-fill-mode: forwards;
+}
+
+.animation-lose {
+  animation: shake 0.75s 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.animation-tie {
+  animation: scale 0.3s 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.selection-battle > .fa-hand-rock {
+  color: var(--blue);
+}
+
+.selection-battle > .fa-hand-paper {
+  color: var(--red);
+}
+
+.selection-battle > .fa-hand-scissors {
+  color: var(--green);
+}
+
+.selection-battle > p {
+  margin-bottom: 0.5em;
+}
+
+.score-grid {
+  transform: scale(0);
+  transition: all 0.3s;
+}
+
+.score-grid.appear {
+  font-size: 1.2em;
+  max-width: 50rem;
+  border-radius: 8px;
+  border: 5px solid var(--primary-dark);
+  padding: 1em;
+  width: min(90%);
+  margin: 1em auto;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  gap: 1em;
+
+  transform: scale(1);
+  transition: all 0.3s;
+}
+
+.restart {
+  margin: auto;
+  font-family: 'Carter One', sans-serif;
+  font-size: 1em;
+  color: var(--secondary-dark);
+  background: var(--primary-light);
+  border-radius: 0.5em;
+  width: 13em;
+  height: 3em;
+  transform: scale(0);
+  transition: all 0.3s;
+}
+
+.restart.appear {
+  transform: scale(1);
+  transition: all 0.3s;
+}
+
+.restart:hover {
+  background: var(--secondary-dark);
+  color: var(--primary-light);
+  transition: 0.1s ease-in;
+}
+
+/* modals */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 4em;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  /* background: var(--secondary-dark); */
+  /* overflow: auto; */
+}
+
+.modal-content {
+  background: var(--primary-light);
+  margin: 20% auto;
+  padding: 1.5em;
+  border: 2px solid var(--primary-dark);
+  border-radius: 0.5em;
+  width: 30%;
+}
+
+.modal-msg {
+  font-size: 1.75em;
+}
+
+/* animations */
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  5% { transform: translate(-10px, -2px) rotate(-5deg); }
+  10% { transform: translate(-3px, 0px) rotate(5deg); }
+  15% { transform: translate(30px, 2px) rotate(0deg); }
+  20% { transform: translate(1px, -1px) rotate(5deg); }
+  /* 25% { transform: translate(-1px, 2px) rotate(-5deg); }
+  30% { transform: translate(-3px, 1px) rotate(0deg); }
+  35% { transform: translate(50px, 1px) rotate(-1deg); }
+  40% { transform: translate(-1px, -1px) rotate(1deg); }
+  45% { transform: translate(10px, 2px) rotate(0deg); }
+  50% { transform: translate(1px, -2px) rotate(-1deg); } */
+  55% { transform: scale(1.75); }
+  100%{ transform: scale(0); }
+}
+
+@keyframes scale {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.7); }
+  100% { transform: scale(1.1); }
 }
