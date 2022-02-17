@@ -25,14 +25,14 @@ function game(playerSelection) {
 const restartBtn = document.querySelector('.restart');
 
 function gameOver() {
-  if (playerLives <= 3) {
+  if (playerLives <= 0) {
     scoreText.innerText = "Game Over! Enemy Wins!";
     setTimeout ( () => {
       loseSound();
       restartBtn.classList.add('appear');
     }, 1300);
     return true;
-  } else if (cpuLives <= 3) {
+  } else if (cpuLives <= 0) {
     scoreText.innerText = "Game Over! Player Wins!";
     setTimeout ( () => {
       winSound();
@@ -153,19 +153,21 @@ function disableBtn() {
 }
 
 function animateIcon(result) {
-  cpuIcon.classList.remove('animation-win', 'animation-lose', 'animation-tie');
-  playerIcon.classList.remove('animation-win','animation-tie', 'animation-lose');
+  cpuIcon.classList.remove('animation-win', 'animation-lose', 'animation-tie', 'animation-cpu-atk');
+  playerIcon.classList.remove('animation-win','animation-tie', 'animation-lose', 'animation-player-atk');
   void cpuIcon.offsetWidth;
   void playerIcon.offsetWidth;
   
   switch (result) {
     case 'win':
       hitSound();
+      playerIcon.classList.add('animation-player-atk')
       cpuIcon.classList.add('animation-lose');
-      playerIcon.classList.add('animation-win');      
+      playerIcon.classList.add('animation-win');
       break;
     case 'lose':
       hitSound();
+      cpuIcon.classList.add('animation-cpu-atk')
       playerIcon.classList.add('animation-lose');
       cpuIcon.classList.add('animation-win');
       break;
