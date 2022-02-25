@@ -161,13 +161,13 @@ function animateIcon(result) {
   switch (result) {
     case 'win':
       hitSound();
-      playerIcon.classList.add('animation-player-atk')
+      playerIcon.classList.add('animation-player-atk');
       cpuIcon.classList.add('animation-lose');
       playerIcon.classList.add('animation-win');
       break;
     case 'lose':
       hitSound();
-      cpuIcon.classList.add('animation-cpu-atk')
+      cpuIcon.classList.add('animation-cpu-atk');
       playerIcon.classList.add('animation-lose');
       cpuIcon.classList.add('animation-win');
       break;
